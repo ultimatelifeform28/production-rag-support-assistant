@@ -23,6 +23,13 @@ This project demonstrates how to build a reliable RAG application with:
 - [x] Initial project structure created
 - [x] Starter application tested
 - [ ] Document-ingestion pipeline
+  - [x] Added three sample technical-support documents
+  - [x] Loaded and cleaned text documents
+  - [x] Divided documents into 100-word chunks
+  - [x] Attached source metadata and unique IDs to every chunk
+  - [ ] Generate embeddings for each chunk
+  - [ ] Store embeddings in a local vector database
+  - [ ] Prevent duplicate document ingestion
 - [ ] Semantic retrieval
 - [ ] Grounded answer generation
 - [ ] Source citations
