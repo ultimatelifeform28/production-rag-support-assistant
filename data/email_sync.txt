@@ -1,0 +1,57 @@
+Email Synchronization Troubleshooting
+
+Purpose
+
+Use this procedure when new email messages do not appear, messages remain in the outbox, or calendar and contact changes do not synchronize.
+
+Check Connectivity
+
+Confirm that the device has a working internet connection. If the user is accessing email through a company network resource, connect to the VPN before continuing.
+
+Check Service Status
+
+Review the company service-status page for an active email outage. If an outage is confirmed, inform the user and document the incident. Do not remove or recreate the account during a known outage.
+
+Restart Synchronization
+
+1. Close the email application.
+2. Wait 30 seconds.
+3. Reopen the application.
+4. Select Send and Receive or Sync.
+5. Allow several minutes for large mailboxes to update.
+
+Verify Account Credentials
+
+If the user recently changed a password, update the saved password in the email application. Complete multifactor authentication if prompted.
+
+Never ask the user to provide a password through email, chat, or a support ticket.
+
+Check Storage
+
+Email may stop synchronizing when the mailbox or device storage is full. Delete unnecessary messages or local files only with the user’s approval. Emptying the deleted-items folder may recover mailbox space.
+
+Common Problems
+
+Messages Stuck in the Outbox:
+Check for large attachments and confirm the recipient address. Remove the attachment and retry when it exceeds the company size limit.
+
+New Messages Are Missing:
+Check the junk-mail folder, inbox rules, filters, and focused-inbox settings.
+
+Calendar Is Not Updating:
+Confirm that the correct calendar is selected and that the application is online. Manually synchronize the calendar.
+
+Mobile Device Is Not Synchronizing:
+Confirm that background data and automatic synchronization are enabled. Restart the device before removing the account.
+
+Escalation
+
+Contact the service desk when:
+
+- Synchronization fails on multiple devices.
+- The application repeatedly requests a password.
+- Mailbox permissions appear incorrect.
+- The user receives a certificate or server error.
+- The problem continues after restarting and manually synchronizing.
+
+Record the affected device, email application, error message, time of failure, and troubleshooting steps in the support ticket.

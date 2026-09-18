@@ -1,0 +1,53 @@
+VPN Connection Troubleshooting
+
+Purpose
+
+Use this procedure when a remote user cannot connect to the company VPN or repeatedly loses the connection.
+
+Check the Internet Connection
+
+Before troubleshooting the VPN, confirm that the computer has a working internet connection. Open a trusted website without using the VPN. If the website does not load, restart the modem or router and contact the internet service provider if necessary.
+
+Verify the VPN Sign-In
+
+Open the approved company VPN application and confirm that the correct server is selected. Enter the company username and current password. Complete multifactor authentication when prompted.
+
+If the user recently changed a password, remove any saved credentials from the VPN application and enter the updated password.
+
+Restart the Connection
+
+1. Disconnect from the VPN.
+2. Close the VPN application.
+3. Restart the computer.
+4. Reopen the VPN application.
+5. Attempt the connection again.
+
+Common VPN Errors
+
+Authentication Failed:
+Confirm the username, password, and multifactor authentication code. The account may be locked after repeated unsuccessful attempts.
+
+Connection Timed Out:
+Check the internet connection and temporarily move closer to the wireless router. Public networks may block VPN traffic.
+
+No Available VPN Server:
+Wait five minutes and try again. Select the secondary company VPN server if it is available.
+
+Connected but Company Resources Are Unavailable:
+Disconnect and reconnect to the VPN. Confirm that the computer received a company network address. Restart the application or mapped drive that cannot reach the company resource.
+
+Security Requirements
+
+Do not disable antivirus software, the firewall, or device encryption to establish a VPN connection. Never use an unapproved VPN application.
+
+Escalation
+
+Contact the service desk when:
+
+- The VPN account remains locked.
+- Multifactor authentication does not work.
+- Both company VPN servers are unavailable.
+- The connection repeatedly drops on a stable internet connection.
+- The VPN reports a certificate or security error.
+
+Record the error message, time of failure, VPN server, and troubleshooting steps in the support ticket.
