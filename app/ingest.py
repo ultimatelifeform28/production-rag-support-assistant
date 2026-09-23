@@ -1,9 +1,15 @@
 from pathlib import Path
+import chromadb
 
 CURRENT_FILE = Path(__file__).resolve()
 APP_DIRECTORY = CURRENT_FILE.parent
 PROJECT_ROOT = APP_DIRECTORY.parent
 DATA_DIRECTORY = PROJECT_ROOT / "data"
+CHROMA_DIRECTORY = PROJECT_ROOT / "chroma_db"
+
+chroma_client = chromadb.PersistentClient(path=str(CHROMA_DIRECTORY))
+
+chunk_collection = chroma_client.get_or_create_collection("document_chunks")
 
 def clean_text(text):
     lines = text.splitlines()
@@ -12,10 +18,9 @@ def clean_text(text):
     # Check each line from the original doucment
     for line in lines:
         cleaned_line = line.strip() # Remove leading and trailing spaces
-       
        # Keep the line only if it is not empty after cleaning 
         if cleaned_line:
-            cleaned_lines.append(cleaned_line)
+           cleaned_lines.append(cleaned_line)
 
     return "\n".join(cleaned_lines)
 
@@ -71,9 +76,50 @@ def load_documents():
 
     return documents
 
-loaded_documents = load_documents()
-print(len(loaded_documents))
+def store_chunks_in_chroma(documents):
+    chunk_ids = []
+    chunk_texts = []
+    chunk_metadatas = []
 
-first_chunk = loaded_documents[0]['chunks'][0]
-print(first_chunk.keys())
-print(first_chunk['chunk_id'])
+    for document in documents:
+        for chunk in document['chunks']:
+
+            chunk_ids.append(chunk['chunk_id'])
+            chunk_texts.append(chunk['chunk_text'])
+
+            chunk_metadata = {
+            'source_filename': chunk['source_filename'],
+            'document_id': chunk['document_id'],
+            'document_title': chunk['document_title'],
+            'chunk_id': chunk['chunk_id'],
+            }
+
+
+            chunk_metadatas.append(chunk_metadata)
+
+    if chunk_ids:
+        chunk_collection.upsert(
+            ids=chunk_ids,
+            documents=chunk_texts,
+            metadatas=chunk_metadatas,
+        )
+        print(f"Chunks stored in Chroma: {chunk_collection.count()}")
+
+        stored_chunks = chunk_collection.get(
+            ids=[chunk_ids[0]],
+            include=['embeddings'],
+        )
+
+        first_embedding = stored_chunks['embeddings'][0]
+        print(f"First embedding dimensions: {len(first_embedding)}")
+
+loaded_documents = load_documents()
+store_chunks_in_chroma(loaded_documents)
+
+total_chunks = 0
+
+for document in loaded_documents:
+    total_chunks += len(document['chunks'])
+
+print(f"Documents processed: {len(loaded_documents)}")
+print(f"Total chunks created: {total_chunks}")

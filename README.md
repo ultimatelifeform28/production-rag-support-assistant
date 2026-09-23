@@ -22,14 +22,15 @@ This project demonstrates how to build a reliable RAG application with:
 - [x] Python 3.12 development environment created
 - [x] Initial project structure created
 - [x] Starter application tested
-- [ ] Document-ingestion pipeline
+- [x] Document-ingestion pipeline
   - [x] Added three sample technical-support documents
   - [x] Loaded and cleaned text documents
   - [x] Divided documents into 100-word chunks
   - [x] Attached source metadata and unique IDs to every chunk
-  - [ ] Generate embeddings for each chunk
-  - [ ] Store embeddings in a local vector database
-  - [ ] Prevent duplicate document ingestion
+  - [x] Generate embeddings for each chunk
+  - [x] Store embeddings in a local vector database
+  - [x] Prevent duplicate document ingestion
+  - [x] Documented how to add new source documents
 - [ ] Semantic retrieval
 - [ ] Grounded answer generation
 - [ ] Source citations
@@ -98,6 +99,66 @@ python -m app.main
 Production RAG Support Assistant is running...
 Environment setup successful. Ready to assist with RAG support tasks.
 ```
+
+## Document Ingestion
+
+Run the document-ingestion pipeline:
+
+```powershell
+python -m app.ingest
+```
+
+The pipeline loads `.txt` files from the `data/` directory, cleans their text, divides them into 100-word chunks, generates embeddings, and stores the results in the local Chroma vector database.
+
+Expected summary output:
+
+```text
+Chunks stored in Chroma: 11
+First embedding dimensions: 384
+Documents processed: 3
+Total chunks created: 11
+```
+
+## Adding New Source Documents
+
+1. Create a plain-text file with the `.txt` extension.
+2. Use a descriptive filename, such as `printer_troubleshooting.txt`.
+3. Put the document’s readable title on the first line.
+4. Add the technical-support content below the title.
+5. Save the file inside the `data/` directory.
+6. Run the ingestion pipeline again:
+
+```powershell
+python -m app.ingest
+```
+
+Example source document:
+
+```text
+Printer Connection Troubleshooting
+
+Purpose
+Use this procedure when a user cannot connect to a network printer.
+
+Troubleshooting Steps
+Confirm that the computer is connected to the organization’s network.
+Verify the printer name and network address.
+Remove and reconnect the printer if necessary.
+```
+
+The filename without `.txt` becomes the document ID. For example:
+
+```text
+printer_troubleshooting.txt → printer_troubleshooting
+```
+
+Each generated chunk receives a stable ID such as:
+
+```text
+printer_troubleshooting_chunk_1
+```
+
+The pipeline uses those stable chunk IDs with Chroma’s `upsert()` operation. Running ingestion again updates matching records instead of creating uncontrolled duplicates.
 
 ## Development Roadmap
 
